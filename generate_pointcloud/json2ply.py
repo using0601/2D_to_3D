@@ -16,8 +16,8 @@ from tqdm import tqdm
 # o3d.io.write_point_cloud("pcd/ZJU/000001.ply", pcd)
 
 def main(dataset_name):
-    path = os.path.join("output", dataset_name, "vertices")
-    os.makedirs(os.path.join("pcd", dataset_name), exist_ok = True)
+    path = os.path.join("generate_pointcloud", "output", dataset_name, "vertices")
+    os.makedirs(os.path.join("generate_pointcloud", "pcd", dataset_name), exist_ok = True)
 
     files = os.listdir(path)
     for filename in files:
@@ -28,7 +28,7 @@ def main(dataset_name):
         pcd = o3d.geometry.PointCloud()
         pcd.points = o3d.utility.Vector3dVector(xyz)
 
-        o3d.io.write_point_cloud(os.path.join("pcd", dataset_name, filename.replace('.json', '.ply')), pcd)
+        o3d.io.write_point_cloud(os.path.join("generate_pointcloud", "pcd", dataset_name, filename.replace('.json', '.ply')), pcd)
 
 
 if __name__ == "__main__":

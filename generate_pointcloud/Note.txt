@@ -4,7 +4,7 @@ Generate multivew pointcloud:
             ==> smpl vis_render generated in /output
 
            For ZJU:
-           emc --data config/datasets/mvimage.yml --exp config/mv1p/detect_triangulate_fitSMPL.yml --root data/examples/ZJU --subs_vis Camera_B1 --subs Camera_B1 Camera_B5 Camera_B10 Camera_B15 Camera_B20 Camera_B23
+           emc --data generate_pointcloud/config/datasets/mvimage.yml --exp generate_pointcloud/config/mv1p/detect_triangulate_fitSMPL.yml --root dataset/ZJU --subs_vis Camera_B1 --subs Camera_B1 Camera_B5 Camera_B10 Camera_B15 Camera_B20 Camera_B23
 #################################################################################################
     step2: mkdir -p boxing/output-smpl-3d
            mkdir -p smpls/output-smpl-3d
@@ -16,10 +16,10 @@ Generate multivew pointcloud:
     step4: python3 apps/postprocess/write_vertices.py boxing/output-smpl-3d/smpl boxing/output-smpl-3d/vertices --cfg_model config/model/smpl.yml --mode vertices
             ==> pointcloud generated (json format)
 
-            python3 apps/postprocess/write_vertices.py output/ZJU_comap/smpl output/ZJU_comap/vertices --cfg_model config/model/smpl.yml --mode vertices
+            python3 generate_pointcloud/apps/postprocess/write_vertices.py generate_pointcloud/output/detect_triangulate_fitSMPL/smpl generate_pointcloud/output/detect_triangulate_fitSMPL/vertices --cfg_model generate_pointcloud/config/model/smpl.yml --mode vertices
 
     step5: Use json2ply.py to transform pointcloud 
-    step5: python json2ply.py 
+    step5: python generate_pointcloud/json2ply.py detect_triangulate_fitSMPL
 
     1.單一視角 影片、相機參數  輸出SMPL(shape已經有了, 求pose) -> 連續pointcloud (有固定編號)
     2.多個視角 影像 (image+相機參數) (多試幾個時間點) (解出身高等...(shape)) 

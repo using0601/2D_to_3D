@@ -4,17 +4,6 @@ import numpy as np
 import open3d as o3d
 from tqdm import tqdm
 
-
-# data = 'output/ZJU_comap/vertices/000001.json'
-# f = open(data)
-
-# data = json.load(f)
-# xyz = np.array(data[0]["vertices"])
-# pcd = o3d.geometry.PointCloud()
-# pcd.points = o3d.utility.Vector3dVector(xyz)
-
-# o3d.io.write_point_cloud("pcd/ZJU/000001.ply", pcd)
-
 def main(dataset_name):
     path = os.path.join("generate_pointcloud", "output", dataset_name, "vertices")
     os.makedirs(os.path.join("generate_pointcloud", "pcd", dataset_name), exist_ok = True)

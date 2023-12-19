@@ -8,8 +8,18 @@ def main(dataset_name, time_step):
 
     # Filter out only the directories
     directories = [os.path.join(entry, time_step) for entry in entries if os.path.isdir(os.path.join(dir_path, entry))]
-    
-    print(directories)
+    output = []
+
+    for dir in directories:
+        file_path = os.path.join(dir_path, dir) + ".png"
+        if os.path.exists(file_path):
+            output.append(dir + ".png")
+        elif os.path.exists(file_path.replace(".png", ".jpg")):
+            output.append(dir + ".jpg")
+        else:
+            print(f'The file "{file_path}" is not found')
+
+    # print("output:", output)
 
 
 

@@ -1,26 +1,9 @@
 Generate multivew pointcloud:
 
-    step1: emc --data config/datasets/mvimage.yml --exp config/mv1p/detect_triangulate_fitSMPL.yml --root data/examples/street_dance --subs_vis 07 01 05 03 --out output/street__dance
-            ==> smpl vis_render generated in /output
+    step1: emc --data generate_pointcloud/config/datasets/mvimage.yml --exp generate_pointcloud/config/mv1p/detect_triangulate_fitSMPL.yml --root dataset/{dataset name} --subs_vis {camera name} --out output/{dataset name}
+    
+    step2: python3 generate_pointcloud/apps/postprocess/write_vertices.py generate_pointcloud/output/detect_triangulate_fitSMPL/smpl generate_pointcloud/output/detect_triangulate_fitSMPL/vertices --cfg_model generate_pointcloud/config/model/smpl.yml --mode vertices
 
-           For ZJU:
-           emc --data generate_pointcloud/config/datasets/mvimage.yml --exp generate_pointcloud/config/mv1p/detect_triangulate_fitSMPL.yml --root dataset/ZJU --subs_vis Camera_B1 --subs Camera_B1 Camera_B5 Camera_B10 Camera_B15 Camera_B20 Camera_B23
-#################################################################################################
-    step2: mkdir -p boxing/output-smpl-3d
-           mkdir -p smpls/output-smpl-3d
+    step3: python generate_pointcloud/json2ply.py detect_triangulate_fitSMPL
 
-    step3: cp -r output/detect_triangulate_fitSMPL/smpl boxing/output-smpl-3d
-           
-           cp -r output/detect_triangulate_fitSMPL/smpl smpls/ZJU  
-#################################################################################################
-    step4: python3 apps/postprocess/write_vertices.py boxing/output-smpl-3d/smpl boxing/output-smpl-3d/vertices --cfg_model config/model/smpl.yml --mode vertices
-            ==> pointcloud generated (json format)
-
-            python3 generate_pointcloud/apps/postprocess/write_vertices.py generate_pointcloud/output/detect_triangulate_fitSMPL/smpl generate_pointcloud/output/detect_triangulate_fitSMPL/vertices --cfg_model generate_pointcloud/config/model/smpl.yml --mode vertices
-
-    step5: Use json2ply.py to transform pointcloud 
-    step5: python generate_pointcloud/json2ply.py detect_triangulate_fitSMPL
-
-    1.單一視角 影片、相機參數  輸出SMPL(shape已經有了, 求pose) -> 連續pointcloud (有固定編號)
-    2.多個視角 影像 (image+相機參數) (多試幾個時間點) (解出身高等...(shape)) 
 

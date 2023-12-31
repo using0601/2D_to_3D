@@ -5,7 +5,7 @@ import os
 def main(dataset_name):
     # Extrinsic
     fs = cv2.FileStorage(os.path.join("dataset", dataset_name, "extri.yml"), cv2.FILE_STORAGE_WRITE)
-    extri = read_extrinsics_binary(os.path.join("dataset", dataset_name, "comap_cam", "images.bin"))
+    extri = read_extrinsics_binary(os.path.join("dataset", dataset_name, "colmap_cam", "images.bin"))
 
     length = len(extri)
 
@@ -24,7 +24,7 @@ def main(dataset_name):
 
     # Intrinsic
     fs = cv2.FileStorage(os.path.join("dataset", dataset_name, "intri.yml"), cv2.FILE_STORAGE_WRITE)
-    intri = read_intrinsics_binary(os.path.join("dataset", dataset_name, "comap_cam", "cameras.bin"))
+    intri = read_intrinsics_binary(os.path.join("dataset", dataset_name, "colmap_cam", "cameras.bin"))
     intri_params = intri[1].params
 
     Camera_list = []

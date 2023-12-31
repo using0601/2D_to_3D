@@ -1,4 +1,5 @@
 import os
+import shutil
 
 def main(dataset_name, time_step):
 
@@ -7,19 +8,22 @@ def main(dataset_name, time_step):
     entries = os.listdir(dir_path)
 
     # Filter out only the directories
-    directories = [os.path.join(entry, time_step) for entry in entries if os.path.isdir(os.path.join(dir_path, entry))]
-    output = []
+    directories = [entry for entry in entries if os.path.isdir(os.path.join(dir_path, entry))]
 
     for dir in directories:
-        file_path = os.path.join(dir_path, dir) + ".png"
-        if os.path.exists(file_path):
-            output.append(dir + ".png")
-        elif os.path.exists(file_path.removesuffix(".png") + ".jpg"):
-            output.append(dir + ".jpg")
+        file_dir = os.path.join(dir_path, dir, time_step)
+        if os.path.exists(file_dir + ".png"):
+            shutil.copyfile(file_dir + ".png", os.path.join(dir_path, dir + ".png"))
+        elif os.path.exists(file_dir + ".jpg"):
+            shutil.copyfile(file_dir + ".jpg", os.path.join(dir_path, dir + ".jpg"))
         else:
-            print(f'The file "{file_path}" is not found')
+            print(f'The file "{file_dir + ".png"}" is not found')
 
-    # print("output:", output)
+    sparse_path = os.path.join("dataset", dataset_name, "sparse", "0")
+    os.makedirs(sparse_path, exist_ok=True)
+    shutil.copyfile(
+        os.path.join("generate_pointcloud", "pcd", dataset_name, time_step + ".ply"),
+        os.path.join(sparse_path, "points3D.ply"))
 
 
 

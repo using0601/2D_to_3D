@@ -14,7 +14,7 @@ def main(dataset_name, time_step):
         file_path = os.path.join(dir_path, dir) + ".png"
         if os.path.exists(file_path):
             output.append(dir + ".png")
-        elif os.path.exists(file_path.replace(".png", ".jpg")):
+        elif os.path.exists(file_path.removesuffix(".png") + ".jpg"):
             output.append(dir + ".jpg")
         else:
             print(f'The file "{file_path}" is not found')

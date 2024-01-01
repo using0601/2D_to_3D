@@ -29,7 +29,7 @@ def main(dataset_name, time_step, skip_image, skip_pcd):
                 continue
 
             with Image.open(os.path.join(mask_path, dir, time_step) + ".png") as im:
-                mask = np.asarray(im)
+                mask = np.asarray(im, imdata.dtype)
             imdata = np.dstack((imdata * np.atleast_3d(mask), mask * 255))
             Image.fromarray(imdata).save(os.path.join(image_path, dir + ".png"))
 

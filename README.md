@@ -100,8 +100,7 @@ conda activate gaussian_splatting
 => pointcloud already in `generate_pointcloud/pcd/{dataset name}`
 4. `python extract.py [--skip_image] {dataset name} {time step}`  
 若已產生透明背景的圖片，且時間點亦相同，則可使用`--skip_image`跳過此動作。
-5. 若未有COLMAP相機參數檔案（`dataset/{dataset name}/sparse/0/cameras.bin`及`dataset/{dataset name}/sparse/0/images.bin`）：  
-`python gaussian-splatting/camera_yml2colmap.py {dataset name}`
+5. `python gaussian-splatting/camera_yml2colmap.py {dataset name}`
 6. `cd gaussian-splatting`  
 `python train.py -s ../dataset/{dataset name} -m {model path} [--eval] [--iterations ITERATIONS]`  
 `python render.py -m {model path} [--skip_train] [--skip_test]`  

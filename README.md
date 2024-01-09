@@ -40,14 +40,15 @@ https://chingswy.github.io/Dataset-Demo/
 ## 自動校準相機參數
 
 若沒有相機參數（或是不信任相機參數），也可以用COLMAP估出，方法如以下步驟：
-1. 參考 https://colmap.github.io/install.html 安裝COLMAP，建議安裝支援CUDA的版本
-2. `python extract.py --skip_pcd {dataset name} {time step}`  
+1. 參考「環境設置」建置執行環境。如果當前環境已包含NumPy、Pillow、OpenCV-Python這三個套件，也可以暫時忽略此步驟。
+2. 參考 https://colmap.github.io/install.html 安裝COLMAP，建議安裝支援CUDA的版本
+3. `python extract.py --skip_pcd {dataset name} {time step}`  
 => 產生第`time step`個時間點，透明背景的圖片，直接放在`dataset/{dataset name}/images/`資料夾下面
-3. 將`dataset/{dataset name}/images/`中的圖片移至`dataset/{dataset name}/input/`資料夾（複製一份亦可）
-4. `python gaussian-splatting/convert.py -s dataset/{dataset name}`  
+4. 將`dataset/{dataset name}/images/`中的圖片移至`dataset/{dataset name}/input/`資料夾（複製一份亦可）
+5. `python gaussian-splatting/convert.py -s dataset/{dataset name}`  
 如果COLMAP沒有在系統路徑上，可以`--colmap_executable {path to colmap}`指定COLMAP執行檔路徑（其中在Windows上需將路徑指向`.bat`檔）。更多細節可參考`gaussian-splatting/README.md`。
-5. 將`dataset/{dataset name}/sparse/0/`中的`cameras.bin`、`images.bin`放入`dataset/{dataset name}/colmap_cam`
-6. `python generate_pointcloud/gen_colmap_cam/gen_colmap.py {dataset name}`  
+6. 將`dataset/{dataset name}/sparse/0/`中的`cameras.bin`、`images.bin`放入`dataset/{dataset name}/colmap_cam`
+7. `python generate_pointcloud/gen_colmap_cam/gen_colmap.py {dataset name}`  
 => 估出之相機參數(`.yml`)已放入`dataset/{dataset name}/`  
 （若用COLMAP估，則相機名稱必須是`Camera_B1`, `Camera_B2`...）
 

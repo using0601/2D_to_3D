@@ -48,7 +48,7 @@ https://chingswy.github.io/Dataset-Demo/
 5. `python gaussian-splatting/convert.py -s dataset/{dataset name}`  
 如果COLMAP沒有在系統路徑上，可以`--colmap_executable {path to colmap}`指定COLMAP執行檔路徑（其中在Windows上需將路徑指向`.bat`檔）。更多細節可參考`gaussian-splatting/README.md`。
 6. 將`dataset/{dataset name}/sparse/0/`中的`cameras.bin`、`images.bin`放入`dataset/{dataset name}/colmap_cam`
-7. `python generate_pointcloud/gen_colmap_cam/gen_colmap.py {dataset name}`  
+7. `python gaussian-splatting/gen_colmap.py {dataset name}`  
 => 估出之相機參數(`.yml`)已放入`dataset/{dataset name}/`  
 （若用COLMAP估，則相機名稱必須是`Camera_B1`, `Camera_B2`...）
 

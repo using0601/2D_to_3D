@@ -1,4 +1,4 @@
-from colmap_loader import *
+from scene.colmap_loader import *
 import cv2
 import os
 

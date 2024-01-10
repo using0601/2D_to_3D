@@ -1,2 +1,0 @@
-cameras.bin 內部參數 
-images.bin  外部參數

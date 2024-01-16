@@ -99,9 +99,12 @@ conda activate gaussian_splatting
 3. `python generate_pointcloud/json2ply.py {dataset name}`  
 => pointcloud already in `generate_pointcloud/pcd/{dataset name}`
 4. `python extract.py [--skip_image] {dataset name} {time step}`  
-若已產生透明背景的圖片，且時間點亦相同，則可使用`--skip_image`跳過此動作。
-5. `python gaussian-splatting/camera_yml2colmap.py {dataset name}`
-6. `cd gaussian-splatting`  
-`python train.py -s ../dataset/{dataset name} -m {model path} [--eval] [--iterations ITERATIONS]`  
-`python render.py -m {model path} [--skip_train] [--skip_test]`  
-`--eval`參數模仿MipNeRF360，將所有視角切分成訓練視角（預設約7/8）及驗證視角（預設約1/8），如果需要其它分割模式（例如報告中將範例資料集唯一過度曝光的視角用作驗證），則可能需要直接修改`gaussian-splatting/scene/dataset_readers.py`。更多可調整的參數請直接參考`gaussian-splatting/README.md`。
+此步驟會將指定時間點的點雲複製至`dataset/{dataset name}/sparse/0/points3D.ply`。若沒有指定`--skip_image`，則此步驟亦會在`dataset/{dataset name}/images/`資料夾中產生該時間點透明背景的圖片；如透明背景的圖片已存在，則可以跳過此動作。
+5. `python gaussian-splatting/camera_yml2colmap.py {dataset name}`  
+此步驟會將相機參數`extri.yml`及`intri.yml`轉成COLMAP格式，並分別置於`dataset/{dataset name}/sparse/0/images.bin`及`dataset/{dataset name}/sparse/0/cameras.bin`。  
+**注意：此步驟亦會捨棄相機扭曲參數。**
+6. `cd gaussian-splatting`
+7. `python train.py -s ../dataset/{dataset name} -m {model path} [--eval] [--iterations ITERATIONS]`  
+此步驟會將訓練好的Gaussian Splatting模型放在`{model path}`資料夾當中；該資料夾下至少會產生`point_cloud`資料夾以及`cfg_args`。`--eval`參數模仿MipNeRF360，將所有視角切分成訓練視角（預設約7/8）及驗證視角（預設約1/8），如果需要其它分割模式（例如報告中將範例資料集唯一過度曝光的視角用作驗證），則可能需要直接修改`gaussian-splatting/scene/dataset_readers.py`。更多可調整的參數請直接參考`gaussian-splatting/README.md`。
+8. `python render.py -m {model path} [--skip_train] [--skip_test]`  
+此步驟會產生渲染結果，存放於`{model path}/train/`及`{model path}/test/`資料夾中。
